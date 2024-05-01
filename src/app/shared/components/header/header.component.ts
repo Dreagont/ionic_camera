@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +10,19 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HeaderComponent  implements OnInit {
 
   @Input() title!: string;
+  @Input() backButton!: string;
+  @Input() isModal!: boolean;
+  @Input() isLogin!: boolean;
 
-  constructor() { }
+  firebaseService = inject(FirebaseService);
+  utilsService = inject(UtilsService);
+  
+  ngOnInit() {
 
-  ngOnInit() {}
+  }
+
+  dissMissModal() {
+    this.utilsService.dismissModal();
+  }
 
 }

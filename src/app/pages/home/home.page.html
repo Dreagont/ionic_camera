@@ -1,0 +1,62 @@
+<app-header title="Home"></app-header>
+<ion-content>
+  <div>
+    <ion-list *ngFor="let p of posts">
+      <ion-item lines="none">
+        <div class="post-container">
+          <div class="post-header">
+            <div class="avatar-name">
+              <ion-avatar slot="start">
+                <ion-img [src]="userAvatar"></ion-img>
+              </ion-avatar>
+              <div class="infor">
+                <div>
+                  <ion-label class="user-name">{{ userName }}</ion-label>
+                </div>
+                <div class="timestamp-privacy">
+                  <label class="timestamp">{{ p.timestamp }}</label>
+                  <ion-icon *ngIf="p.privacy === 'public'" name="globe-outline" class="privacy-icon-public"></ion-icon>
+                  <ion-icon *ngIf="p.privacy === 'private'" name="lock-closed-outline" class="privacy-icon-private"></ion-icon>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="post-content">
+            <div class="post-description">{{ p.description }}</div>
+            <div class="post-image">
+              <ion-img [src]="p.image"></ion-img>
+            </div>
+          </div>
+          <div class="post-actions">
+            <div class="like-container">
+              <ion-icon class="like-icon" name="heart-outline"></ion-icon>
+              <div class="like-count">{{ p.like }}</div>
+            </div>
+            <div class="button-group">
+              <ion-button (click)="addUpdatePost(p)" class="edit-button" fill="clear" shape="round">
+                Edit
+                <ion-icon slot="start" name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button (click)="presentAlertConfirm(p)" class="delete-button" fill="clear" shape="round">
+                Delete
+                <ion-icon slot="start" name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-button class="submit" (click)="submit()" expand="block" fill="clear" shape="round">
+      Sign Out
+      <ion-icon slot="end" name="log-in-outline"></ion-icon>
+    </ion-button>
+
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="addUpdatePost()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>

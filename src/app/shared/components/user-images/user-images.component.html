@@ -1,0 +1,45 @@
+<app-header [isModal]="true" [title]="post ? 'Update post' : 'Add new post'"></app-header>
+<ion-content>
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      <ion-avatar *ngIf="form.value.image" >
+        <img  [src]="form.value.image"/>
+      </ion-avatar>
+
+      <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
+
+      <br>
+
+      <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+        Add Picture
+      </ion-button>
+
+
+      <div class="validators" *ngIf="form.controls.description.errors && form.controls.description.touched">
+        <div *ngIf="form.controls.description.errors?.['required']">Please enter your name</div>
+        <div *ngIf="form.controls.description.errors?.['minlength']">Invalid name length (>6)</div>
+      </div>
+      <app-custom-input [control]="form.controls.description" type="text" label="Description"></app-custom-input>
+      
+      <!-- Radio buttons for selecting post privacy -->
+      <ion-list>
+        <ion-radio-group formControlName="privacy">
+          <ion-item>
+            <ion-label>Public</ion-label>
+            <ion-radio value="public"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Private</ion-label>
+            <ion-radio value="private"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      
+      <ion-button type="submit" [disabled]="form.invalid" class="submit" mode="ios" expand="block" shape="round">
+        Post
+        <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
