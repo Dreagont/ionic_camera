@@ -6,6 +6,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { UserImagesComponent } from 'src/app/shared/components/user-images/user-images.component';
 import { Router } from '@angular/router';
+import { orderBy } from 'firebase/firestore';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,12 @@ export class HomePage implements OnInit {
   currentDate: string;
   userAvatar: any;
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getPost();
+      event.target.complete();
+    }, 2000);
+  }
 
   constructor(
     private firebaseService: FirebaseService,
@@ -31,22 +38,26 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     if (this.isFirstTimeLogin()) {
-      this.reloadHomePage();
+      this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/home']);
+      });
+      this.getPost();
+
     } else {
       this.getPost();
     }
-
+  
     const userDataString = localStorage.getItem('user');
     if (userDataString) {
       const userData = JSON.parse(userDataString);
       this.userName = userData.name;
       this.userAvatar = userData.avatar;
     }
-
-
   }
+  
 
   posts: Post[] = [];
+  loading : boolean = false;
 
   user(): User {
     return this.utilsService.loadLocal('user');
@@ -55,7 +66,7 @@ export class HomePage implements OnInit {
   async submit() {
     this.firebaseService.signOut();
   }
-
+//
   async addUpdatePost(post?: Post) {
     let success = await this.utilsService.presentModal({
       component: UserImagesComponent,
@@ -70,9 +81,16 @@ export class HomePage implements OnInit {
 
   getPost() {
     let path = `users/${this.user().id}/posts`;
-    let sub = this.firebaseService.getCollectionData(path).subscribe({
+    console.log(this.user().email);
+    let query =  (
+      orderBy('timestamp', 'desc')
+    )
+    this.loading = true;
+    let sub = this.firebaseService.getCollectionData(path, query).subscribe({
       next: (res: any) => {
         this.posts = res;
+
+        this.loading = false;
         console.log(res);
         sub.unsubscribe();
       }

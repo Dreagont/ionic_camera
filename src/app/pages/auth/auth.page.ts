@@ -30,7 +30,7 @@ export class AuthPage implements OnInit {
       try {
         const { email, password } = this.form.value;
         const res = await this.firebaseService.signIn({ email, password } as User);
-        this.utilsService.router2Page("/home");
+        // this.utilsService.router2Page("/home");
         this.getUserName(res.user.uid);
       } catch (error) {
         console.error(error);

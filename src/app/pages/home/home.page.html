@@ -1,6 +1,9 @@
 <app-header title="Home"></app-header>
 <ion-content>
   <div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <ion-list *ngFor="let p of posts">
       <ion-item lines="none">
         <div class="post-container">
@@ -47,6 +50,10 @@
         </div>
       </ion-item>
     </ion-list>
+
+    <div *ngIf="!loading && !posts.length" class="emty">
+      <h3>You have no post</h3>
+    </div>
 
     <ion-button class="submit" (click)="submit()" expand="block" fill="clear" shape="round">
       Sign Out
