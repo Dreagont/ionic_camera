@@ -57,7 +57,7 @@ export class AuthPage implements OnInit {
         const user = await this.firebaseService.getDocument(`users/${id}`);
         this.utilsService.saveLocal('user', user);
         this.form.reset();
-        this.utilsService.router2Page('/home');
+        this.utilsService.router2Page('./main/home');
       } catch (error) {
         console.error(error);
         const errorMessage = (error && error.message) ? error.message : 'An error occurred';

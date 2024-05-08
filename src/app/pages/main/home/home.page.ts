@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/models/post.model';
 import { User } from 'src/app/models/user.model';
@@ -30,11 +30,9 @@ export class HomePage implements OnInit {
     }, 2000);
   }
 
-  constructor(
-    private firebaseService: FirebaseService,
-    private utilsService: UtilsService,
-    private router: Router
-  ) { }
+  firebaseService = inject(FirebaseService);
+  utilsService = inject(UtilsService);
+  router = inject(Router);
 
   ngOnInit() {
     if (this.isFirstTimeLogin()) {

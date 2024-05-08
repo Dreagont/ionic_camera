@@ -1,0 +1,32 @@
+<ion-menu contentId="menu-content" menuId="menu-content" side="start">
+  <app-header title="Menu">
+    <ion-toolbar>
+      <ion-title>Awesome avocado menu</ion-title>
+    </ion-toolbar>
+  </app-header>
+
+  <ion-content>
+    <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+      <ion-item [ngClass]="{'active': currentPage === p.url}" [routerLink]= "p.url" routerDirection="root" detail >
+        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+        <ion-label> {{p.title}} </ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+
+   
+  </ion-content>
+
+  <ion-footer>
+    <div style="cursor: pointer;">
+      <ion-menu-toggle auto-hide="false">
+        <ion-item (click)="signOut()">
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          <ion-label>Logout</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </div>
+  
+  </ion-footer>
+</ion-menu>
+
+<ion-router-outlet id="menu-content" main></ion-router-outlet>
