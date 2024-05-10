@@ -5,6 +5,7 @@
       <ion-button (click)="dissMissModal()" *ngIf="isModal">
         <ion-icon  name="close-circle-outline"></ion-icon>
       </ion-button>
+        <ion-menu-button *ngIf="showMenu" menu="menu-content"></ion-menu-button>
     </ion-buttons>
     <ion-title> <strong style="color: white;">{{title}}</strong>  </ion-title>
   </ion-toolbar>

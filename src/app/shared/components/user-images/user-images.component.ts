@@ -73,9 +73,7 @@ export class UserImagesComponent implements OnInit {
           icon: 'alert-circle-outline',
         });
         // Auto-reload the page or navigate back to the same page
-        this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/home']);
-        });
+        
       }).catch(error => {
         console.error(error); // Log the error object to the console for inspection
         const errorMessage = (error && error.message) ? error.message : 'An error occurred';
@@ -123,9 +121,7 @@ export class UserImagesComponent implements OnInit {
           icon: 'alert-circle-outline',
         });
         // Auto-reload the page or navigate back to the same page
-        this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/home']);
-        });
+       
       }).catch(error => {
         console.error(error); // Log the error object to the console for inspection
         const errorMessage = (error && error.message) ? error.message : 'An error occurred';
