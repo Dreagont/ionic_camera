@@ -21,6 +21,7 @@ export class UserImagesComponent implements OnInit {
     image: new FormControl('', [Validators.required]),
     like: new FormControl(0),
     timestamp: new FormControl(''),
+    likedBy: new FormControl,
   });
 
   firebaseService = inject(FirebaseService);

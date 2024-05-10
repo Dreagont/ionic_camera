@@ -1,0 +1,45 @@
+<app-header [showMenu]="true" title="Social Posts"></app-header>
+<ion-content>
+  <div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-list *ngFor="let p of posts" > 
+      <ion-item *ngIf="p.privacy === 'public'" lines="none">
+        <div class="post-container">
+          <div class="post-header">
+            <div class="avatar-name">
+              <ion-avatar slot="start">
+                <ion-img [src]="p.userAvatar"></ion-img>
+              </ion-avatar>
+              <div class="infor">
+                <div>
+                  <ion-label class="user-name">{{ p.username }}</ion-label>
+                </div>
+                <div class="timestamp-privacy">
+                  <label class="timestamp">{{ p.timestamp }}</label>
+                  <ion-icon *ngIf="p.privacy === 'public'" name="globe-outline" class="privacy-icon-public"></ion-icon>
+                  <ion-icon *ngIf="p.privacy === 'private'" name="lock-closed-outline" class="privacy-icon-private"></ion-icon>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="post-content">
+            <div class="post-description">{{ p.description }}</div>
+            <div class="post-image">
+              <ion-img [src]="p.image"></ion-img>
+            </div>
+          </div>
+          <div class="post-actions">
+            <div class="like-container">
+              <ion-icon class="like-icon" (click)="likePost(p, user().id, p.userId)" name="heart-outline"></ion-icon>
+              <div class="like-count">{{ p.like }}</div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+  </div>
+</ion-content>

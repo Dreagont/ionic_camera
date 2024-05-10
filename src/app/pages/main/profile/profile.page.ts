@@ -1,7 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { Route, Router } from '@angular/router';
+import { Post } from 'src/app/models/post.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { ChangeUsernameComponent } from 'src/app/shared/components/change-username/change-username.component';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +15,7 @@ export class ProfilePage implements OnInit {
 
   firebaseService = inject(FirebaseService);
   utilsService = inject(UtilsService);
+  router = inject(Router);
 
   user(): User {
     return this.utilsService.loadLocal('user');
@@ -52,6 +56,23 @@ export class ProfilePage implements OnInit {
     }).finally(() => {
       loading.dismiss();
     });
+  }
+
+  async addUpdateUser(post?: Post) {
+    let success = await this.utilsService.presentModal({
+      component: ChangeUsernameComponent,
+      cssClass: 'change-username-modal',
+      componentProps: { post }
+    });
+
+    if (success) {
+      this.reloadPage();
+    }
+
+  }
+
+  reloadPage() {
+    window.location.reload();
   }
 //2.56
 }

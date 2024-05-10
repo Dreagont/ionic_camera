@@ -18,7 +18,9 @@ export class MainPage implements OnInit {
 
   pages = [
     {title : 'Home', icon : 'home-outline', url : '/main/home'},
-    {title : 'Profile', icon : 'person-outline', url : '/main/profile'}
+    {title : 'Profile', icon : 'person-outline', url : '/main/profile'},
+    {title : 'Socail Posts', icon : 'earth-outline', url : '/main/social'}
+
   ]
 
   route = inject(Router);

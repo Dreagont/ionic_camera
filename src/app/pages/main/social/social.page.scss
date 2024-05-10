@@ -1,0 +1,83 @@
+.post-description {
+    margin-bottom: 10px;
+    margin-top: 20px; /* Add some spacing between description and image */
+  }
+  
+  .post-container{
+    margin: 0 auto;
+  }
+  
+  .post-image ion-img {
+    width: 500px; /* Make the image fill the width */
+    height: 400px; /* Set a fixed height for the image */
+    object-fit: cover; /* Ensure the image covers the entire space */
+    border-radius: 16px;
+  }
+  .button-group {
+    display: flex; /* Use flexbox to make buttons appear in a row */
+  }
+  
+  .edit-button,
+  .delete-button {
+    flex: 1; /* Distribute available space equally between buttons */
+    margin-right: 8px; /* Add some space between buttons */
+  }
+  
+  .like-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Center items vertically */
+  }
+  
+  .like-icon {
+    color: var(--ion-color-primary); /* Set the color of the like icon */
+    margin-right: 4px; /* Add some space between icon and count */
+  }
+  
+  .like-count {
+    font-size: 14px; /* Adjust the font size as needed */
+  }
+  
+  .delete-button {
+    --color: red; /* Set text and icon color to red */
+  }
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .avatar-name {
+    display: flex;
+    align-items: center;
+  }
+  
+  .timestamp-privacy {
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+  
+  }
+  
+  .user-name {
+    font-weight: bold;
+     
+  }
+  
+  .timestamp,
+  .privacy-icon-public,
+  .privacy-icon-private {
+    color: rgba(0, 0, 0, 0.5); 
+  }
+  
+  .timestamp {
+    margin-right: 5px;
+    font-size: smaller; /* Adjust as needed */
+  }
+  
+  .infor{
+      justify-content: center;
+      align-items: center;
+      margin-left: 10px;
+  }
+  

@@ -6,6 +6,7 @@ import { LogoComponent } from './components/logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserImagesComponent } from './components/user-images/user-images.component';
+import { ChangeUsernameComponent } from './components/change-username/change-username.component';
 
 
 
@@ -14,14 +15,16 @@ import { UserImagesComponent } from './components/user-images/user-images.compon
     HeaderComponent,
     CustomInputComponent,
     LogoComponent,
-    UserImagesComponent
+    UserImagesComponent,
+    ChangeUsernameComponent
   ],
   exports: [
     HeaderComponent,
     CustomInputComponent,
     LogoComponent,
     ReactiveFormsModule,
-    UserImagesComponent
+    UserImagesComponent,
+    ChangeUsernameComponent
   ],
   imports: [
     CommonModule,

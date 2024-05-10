@@ -9,11 +9,11 @@
 
   <h2> {{user().name}} </h2>
 
-  <ion-item button detail>
+  <ion-item button detail (click)="addUpdateUser()">
     <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
     <ion-label>Edit Name</ion-label>
   </ion-item>
-  <ion-item button detail>
+  <ion-item button detail (click)="reloadPage()">
     <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
     <ion-label>Edit Name</ion-label>
   </ion-item>
