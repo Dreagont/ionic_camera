@@ -74,5 +74,9 @@ export class ProfilePage implements OnInit {
   reloadPage() {
     window.location.reload();
   }
+
+  resetPassword() {
+    this.utilsService.router2Page('./auth/forgot-password');
+  }
 //2.56
 }
