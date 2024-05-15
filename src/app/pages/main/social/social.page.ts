@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { orderBy } from 'lodash';
 import { Subscription } from 'rxjs';
-import { Post } from 'src/app/models/post.model';
+import { Post, UserComment } from 'src/app/models/post.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -58,6 +58,16 @@ export class SocialPage implements OnInit {
                 post.username = user.name;
                 post.userAvatar = user.avatar;
                 post.userId = user.id;
+                post.showComments = false;
+
+                // Update avatar in existing comments
+                if (post.comments && post.comments.length > 0) {
+                  post.comments.forEach(comment => {
+                    if (comment.userId === user.id) {
+                      comment.userAvatar = user.avatar;
+                    }
+                  });
+                }
               });
 
               allPosts = allPosts.concat(userPosts);
@@ -109,6 +119,45 @@ export class SocialPage implements OnInit {
   
     let path = `users/${ownerId}/posts/${post.id}`;
     this.firebaseService.updateDocument(path, { like: post.like, likedBy: post.likedBy });
+  }
+
+  userLikedPost(post: Post, userId: string): boolean {
+    // Check if likedBy array exists and user's ID is included
+    return post.likedBy !== null && post.likedBy.includes(userId);
+  }
+  
+  addComment(post: Post, commentContent: string , ownerId: string) {
+    if (!post.comments) {
+      post.comments = []; 
+    }
+  
+    const newComment: UserComment = {
+      userId: this.user().id,
+      username: this.user().name,
+      userAvatar: this.user().avatar,
+      content: commentContent
+    };
+
+    
+  
+    post.comments.push(newComment);
+
+    const path = `users/${ownerId}/posts/${post.id}`;
+    this.firebaseService.updateDocument(path, { comments: post.comments })
+    .then(() => {
+      console.log('Comment added successfully.');
+    })
+    .catch((error) => {
+      console.error('Error adding comment:', error);
+    });
+    
+    this.newComment = '';
+  }
+
+  newComment: string = ''
+
+  toggleComments(post: Post) {
+    post.showComments = !post.showComments;
   }
   
 }

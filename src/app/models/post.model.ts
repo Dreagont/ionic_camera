@@ -6,4 +6,12 @@ export interface Post {
     privacy:string,
     like: number,
     timestamp
+    comments: UserComment[];
+    showComments: boolean
+}
+export interface UserComment {
+    userId: string;
+    username: string;
+    userAvatar: string;
+    content: string;
 }

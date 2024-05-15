@@ -33,11 +33,37 @@
           </div>
           <div class="post-actions">
             <div class="like-container">
-              <ion-icon class="like-icon" (click)="likePost(p, user().id, p.userId)" name="heart-outline"></ion-icon>
+              <ion-icon class="like-icon" *ngIf="userLikedPost(p, user().id)" (click)="likePost(p, user().id, p.userId)" name="heart"></ion-icon>
+              <ion-icon class="like-icon" *ngIf="!userLikedPost(p, user().id)" (click)="likePost(p, user().id, p.userId)" name="heart-outline"></ion-icon>
               <div class="like-count">{{ p.like }}</div>
+              <div style="flex-grow: 1;"></div> 
+              <ion-button (click)="toggleComments(p)">
+                {{ p.showComments ? 'Hide Comments' : 'Show Comments' }}
+              </ion-button>
             </div>
+            
           </div>
+          <div *ngIf="p.showComments" class="post-comments" [ngClass]="{'scrollable': p.comments?.length > 5}">
+            <ion-list>
+              <ion-item *ngFor="let comment of p.comments">
+                <ion-avatar slot="start">
+                  <ion-img [src]="comment.userAvatar"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                  <h2>{{ comment.username }}</h2>
+                  <p>{{ comment.content }}</p>
+                  <p class="comment-timestamp">{{ comment.timestamp }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+          
+          <ion-item *ngIf="p.showComments" class="add-comment">
+            <ion-input (keyup.enter)="addComment(p, newComment, p.userId)" type="text" placeholder="Add a comment" [(ngModel)]="newComment"></ion-input>
+            <ion-button (click)="addComment(p, newComment, p.userId)">Post</ion-button>
+          </ion-item>
         </div>
+        
       </ion-item>
     </ion-list>
 

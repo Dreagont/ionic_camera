@@ -31,11 +31,12 @@
   
   .like-icon {
     color: var(--ion-color-primary); /* Set the color of the like icon */
-    margin-right: 4px; /* Add some space between icon and count */
+    margin-right: 4px;
+    font-size: 20px; /* Add some space between icon and count */
   }
   
   .like-count {
-    font-size: 14px; /* Adjust the font size as needed */
+    font-size: 16px; /* Adjust the font size as needed */
   }
   
   .delete-button {
@@ -80,4 +81,11 @@
       align-items: center;
       margin-left: 10px;
   }
+  .post-comments {
+    max-height: 200px; /* Set a maximum height for the comments container */
+    overflow-y: auto; /* Enable vertical scrollbar when content exceeds the container height */
+  }
   
+  .scrollable {
+    overflow-y: scroll; /* Always show scrollbar even if content does not exceed container height */
+  }
