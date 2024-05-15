@@ -15,6 +15,7 @@ export class SignUpPage implements OnInit {
     id: new FormControl(''),
     email: new FormControl('',[Validators.required, Validators.email]),
     password: new FormControl('',[Validators.required]),
+    confirmPassword: new FormControl('',[Validators.required]),
     name: new FormControl('',[Validators.required, Validators.minLength(6)]),
     avatar : new FormControl('https://firebasestorage.googleapis.com/v0/b/ionic-web-app-e0eaf.appspot.com/o/default.png?alt=media&token=1487b529-d187-40a0-9b31-f273230a6458')
   });
@@ -27,7 +28,7 @@ export class SignUpPage implements OnInit {
 
   async submit() {
 
-    if (this.form.valid) {
+    if (this.form.valid && this.form.value.password === this.form.value.confirmPassword) {
       const loading = await this.utilsService.loading();
       await loading.present();
 
@@ -39,6 +40,14 @@ export class SignUpPage implements OnInit {
         this.form.controls.id.setValue(id);
 
         this.setUserName(id);
+
+        this.utilsService.toastMessage({
+          message: "Sign Up Success",
+          duration: 2000,
+          color: 'success',
+          position: 'middle',
+          icon: 'alert-circle-outline',
+        });
 
       }).catch(error => {
         console.error(error); // Log the error object to the console for inspection
@@ -53,6 +62,14 @@ export class SignUpPage implements OnInit {
       })
       .finally(() => {
         loading.dismiss();
+      });
+    } else {
+      this.utilsService.toastMessage({
+        message: "Confirm password not match",
+        duration: 2000,
+        color: 'primary',
+        position: 'middle',
+        icon: 'alert-circle-outline',
       });
     } 
   }
