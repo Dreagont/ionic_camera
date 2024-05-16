@@ -37,9 +37,13 @@
               <ion-icon class="like-icon" *ngIf="!userLikedPost(p, user().id)" (click)="likePost(p, user().id, p.userId)" name="heart-outline"></ion-icon>
               <div class="like-count">{{ p.like }}</div>
               <div style="flex-grow: 1;"></div> 
-              <ion-button (click)="toggleComments(p)">
-                {{ p.showComments ? 'Hide Comments' : 'Show Comments' }}
-              </ion-button>
+              <div class="comment-button-container">
+                
+                <ion-button (click)="toggleComments(p)">
+                  <ion-icon name="chatbox-ellipses-outline" style="margin-right: 5px;"></ion-icon>
+                        {{getCommentCount(p)}}
+                </ion-button>
+              </div>
             </div>
             
           </div>

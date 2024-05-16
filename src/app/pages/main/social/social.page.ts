@@ -159,5 +159,8 @@ export class SocialPage implements OnInit {
   toggleComments(post: Post) {
     post.showComments = !post.showComments;
   }
-  
+
+  getCommentCount(post: Post): number {
+    return post.comments ? post.comments.length : 0;
+  }
 }
