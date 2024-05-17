@@ -127,8 +127,8 @@ export class HomePage implements OnInit {
         icon: 'alert-circle-outline',
       });
       // Auto-reload the page or navigate back to the same page
-      this.router.navigateByUrl('/home', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['/home']);
+      this.router.navigateByUrl('./main/home', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['./main/home']);
       });
     }).catch(error => {
       console.error(error); // Log the error object to the console for inspection

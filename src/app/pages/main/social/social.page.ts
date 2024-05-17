@@ -64,7 +64,12 @@ export class SocialPage implements OnInit {
                 if (post.comments && post.comments.length > 0) {
                   post.comments.forEach(comment => {
                     if (comment.userId === user.id) {
-                      comment.userAvatar = user.avatar;
+                      // Update avatar if user changed it
+                      if (comment.userAvatar !== user.avatar) {
+                        comment.userAvatar = user.avatar;
+                        // Update avatar in database
+                        this.updateCommentUserAvatar(user.id, post.id, comment.id, user.avatar);
+                      }
                     }
                   });
                 }
@@ -102,6 +107,17 @@ export class SocialPage implements OnInit {
     
   }
 
+  updateCommentUserAvatar(userId: string, postId: string, commentId: string, newAvatar: string) {
+    const path = `users/${userId}/posts/${postId}/comments/${commentId}`;
+    this.firebaseService.updateDocument(path, { userAvatar: newAvatar })
+      .then(() => {
+        console.log('Comment user avatar updated successfully.');
+      })
+      .catch((error) => {
+        console.error('Error updating comment user avatar:', error);
+      });
+  }
+
   likePost(post: Post, userId: string, ownerId: string) {
     if (post.likedBy === null) {      
       post.likedBy = [];
@@ -137,19 +153,17 @@ export class SocialPage implements OnInit {
       userAvatar: this.user().avatar,
       content: commentContent
     };
-
-    
   
     post.comments.push(newComment);
-
+  
     const path = `users/${ownerId}/posts/${post.id}`;
     this.firebaseService.updateDocument(path, { comments: post.comments })
-    .then(() => {
-      console.log('Comment added successfully.');
-    })
-    .catch((error) => {
-      console.error('Error adding comment:', error);
-    });
+      .then(() => {
+        console.log('Comment added successfully.');
+      })
+      .catch((error) => {
+        console.error('Error adding comment:', error);
+      });
     
     this.newComment = '';
   }
